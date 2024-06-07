@@ -17,8 +17,8 @@ public class Servidor {
             System.out.println("Servidor iniciado y escuchando en el puerto " + PORT);
             while (true) {
                 try (Socket socket = serverSocket.accept();
-                        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
                     String action = ois.readUTF();
                     ClienteDAO clienteDAO = new ClienteDAO();
                     switch (action) {
@@ -40,6 +40,11 @@ public class Servidor {
                             String ruc = ois.readUTF();
                             clienteDAO.eliminarCliente(ruc);
                             oos.writeUTF("Cliente eliminado correctamente");
+                            break;
+                        case "buscarClientes":
+                            String nombre = ois.readUTF();
+                            List<Cliente> clientesBuscados = clienteDAO.buscarClientes(nombre);
+                            oos.writeObject(clientesBuscados);
                             break;
                     }
                     oos.flush();

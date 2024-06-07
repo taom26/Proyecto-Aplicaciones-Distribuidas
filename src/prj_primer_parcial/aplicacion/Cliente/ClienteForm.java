@@ -15,16 +15,18 @@ public class ClienteForm extends JFrame {
     private JTextField rucField;
     private JTextField nombreField;
     private JTextField direccionField;
+    private JTextField buscarField;
     private JButton guardarButton;
     private JButton obtenerButton;
     private JButton eliminarButton;
     private JButton actualizarButton;
+    private JButton buscarButton;
     private JTable clientesTable;
     private DefaultTableModel tableModel;
 
     public ClienteForm() {
         setTitle("Gestión de Clientes");
-        setSize(500, 400);
+        setSize(550, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -34,10 +36,12 @@ public class ClienteForm extends JFrame {
         rucField = new JTextField(15);
         nombreField = new JTextField(15);
         direccionField = new JTextField(15);
+        buscarField = new JTextField(15);
         guardarButton = new JButton("Guardar");
         obtenerButton = new JButton("Obtener Clientes");
         eliminarButton = new JButton("Eliminar");
         actualizarButton = new JButton("Actualizar");
+        buscarButton = new JButton("Buscar");
 
         panel.add(new JLabel("RUC:"));
         panel.add(rucField);
@@ -50,7 +54,11 @@ public class ClienteForm extends JFrame {
         panel.add(eliminarButton);
         panel.add(actualizarButton);
 
-       tableModel = new DefaultTableModel(new String[]{"RUC", "Nombre", "Dirección"}, 0);
+        panel.add(new JLabel("Buscar por Nombre:"));
+        panel.add(buscarField);
+        panel.add(buscarButton);
+
+        tableModel = new DefaultTableModel(new String[]{"RUC", "Nombre", "Dirección"}, 0);
         clientesTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(clientesTable);
 
@@ -60,6 +68,7 @@ public class ClienteForm extends JFrame {
         obtenerButton.addActionListener(e -> obtenerClientes());
         eliminarButton.addActionListener(e -> eliminarCliente());
         actualizarButton.addActionListener(e -> actualizarCliente());
+        buscarButton.addActionListener(e -> buscarClientes());
 
         // Agregar listener para seleccionar fila en la tabla de clientes
         clientesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -105,7 +114,7 @@ public class ClienteForm extends JFrame {
              ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
             oos.writeUTF("obtenerClientes");
             oos.flush();
-            
+
             @SuppressWarnings("unchecked")
             List<Cliente> clientes = (List<Cliente>) ois.readObject();
             tableModel.setRowCount(0);  // Limpiar la tabla
@@ -117,7 +126,6 @@ public class ClienteForm extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al obtener los clientes");
         }
     }
-    
 
     private void eliminarCliente() {
         int selectedRow = clientesTable.getSelectedRow();
@@ -132,7 +140,7 @@ public class ClienteForm extends JFrame {
             oos.writeUTF("eliminarCliente");
             oos.writeUTF(ruc);
             oos.flush();
-            
+
             String response = ois.readUTF();
             JOptionPane.showMessageDialog(this, response);
             obtenerClientes();  // Actualizar la lista de clientes
@@ -140,13 +148,6 @@ public class ClienteForm extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al eliminar el cliente");
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ClienteForm form = new ClienteForm();
-            form.setVisible(true);
-        });
     }
 
     private void actualizarCliente() {
@@ -166,10 +167,10 @@ public class ClienteForm extends JFrame {
              ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
             Cliente cliente = new Cliente(ruc, nombre, direccion);
-    
+
             oos.writeUTF("actualizarCliente");
             oos.writeObject(cliente);
-    
+
             String response = ois.readUTF();
             JOptionPane.showMessageDialog(this, response);
             obtenerClientes();  // Actualizar la lista de clientes
@@ -177,5 +178,37 @@ public class ClienteForm extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al actualizar el cliente");
         }
+    }
+
+    private void buscarClientes() {
+        String nombre = buscarField.getText();
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de búsqueda está vacío.");
+            return;
+        }
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("buscarClientes");
+            oos.writeUTF(nombre);
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Cliente> clientes = (List<Cliente>) ois.readObject();
+            tableModel.setRowCount(0);  // Limpiar la tabla
+            for (Cliente cliente : clientes) {
+                tableModel.addRow(new Object[]{cliente.getRuc(), cliente.getNombre(), cliente.getDireccion()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar los clientes");
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            ClienteForm form = new ClienteForm();
+            form.setVisible(true);
+        });
     }
 }
