@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.swing.*;
 
 import prj_primer_parcial.aplicacion.Cliente.ClienteForm;
+import prj_primer_parcial.aplicacion.Inventario.InventarioForm;
 
 public class PantallaPrincipal extends JFrame {
     private JPanel contentPanel;
@@ -21,6 +22,7 @@ public class PantallaPrincipal extends JFrame {
 
         MenuPanel menuPanel = new MenuPanel();
         menuPanel.getBotonClientes().addActionListener(e -> mostrarPantallaClientes());
+        menuPanel.getBotonInventario().addActionListener(e -> mostrarPantallaInventario());
 
         contentPanel.add(menuPanel, BorderLayout.WEST);
         contentPanel.add(mainPanel, BorderLayout.CENTER);
@@ -36,6 +38,15 @@ public class PantallaPrincipal extends JFrame {
         ClienteForm clienteForm = new ClienteForm();
         JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
         dialog.getContentPane().add(clienteForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }
+
+    private void mostrarPantallaInventario() {
+        InventarioForm inventarioForm = new InventarioForm();
+        JDialog dialog = new JDialog(this, "Gestión de Inventario", true);
+        dialog.getContentPane().add(inventarioForm.getContentPane());
         dialog.pack();
         dialog.setLocationRelativeTo(this); 
         dialog.setVisible(true);

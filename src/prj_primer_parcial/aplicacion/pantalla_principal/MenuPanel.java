@@ -29,4 +29,8 @@ public class MenuPanel extends JPanel {
     public JButton getBotonClientes() {
         return clientesButton;
     }
+    
+    public JButton getBotonInventario() {
+        return inventariosButton;
+    }
 }
