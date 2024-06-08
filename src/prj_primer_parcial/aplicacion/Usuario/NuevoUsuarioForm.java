@@ -125,9 +125,9 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
             Usuario usuario = new Usuario(jTextField1.getText(), jTextField2.getText());
 
             oos.writeUTF("insertarUsuario");
-            oos.flush(); // Flush para enviar el comando
+            oos.flush();
             oos.writeObject(usuario);
-            oos.flush(); // Flush para enviar el objeto
+            oos.flush();
 
             String response = ois.readUTF();
             JOptionPane.showMessageDialog(this, response);
