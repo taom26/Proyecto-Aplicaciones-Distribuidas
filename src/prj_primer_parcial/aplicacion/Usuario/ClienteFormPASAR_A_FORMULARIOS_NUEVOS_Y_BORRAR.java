@@ -1,3 +1,4 @@
+/*
 package prj_primer_parcial.aplicacion.Usuario;
 
 import prj_primer_parcial.negocio.Usuario;
@@ -212,3 +213,5 @@ public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
         });
     }
 }
+
+*/

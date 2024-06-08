@@ -1,3 +1,4 @@
+// Servidor.java
 package prj_primer_parcial.escucha;
 
 import prj_primer_parcial.negocio.Usuario;
@@ -39,11 +40,11 @@ public class Servidor {
                         case "eliminarUsuario":
                             String usuario = ois.readUTF();
                             usuarioDAO.eliminarUsuario(usuario);
-                            oos.writeUTF("Cliente eliminado correctamente");
+                            oos.writeUTF("Usuario eliminado correctamente");
                             break;
                         case "buscarUsuarios":
-                            String usuario2 = ois.readUTF();
-                            List<Usuario> usuariosBuscados = usuarioDAO.buscarUsuarios(usuario2);
+                            String usuarioBuscado = ois.readUTF();
+                            List<Usuario> usuariosBuscados = usuarioDAO.buscarUsuarios(usuarioBuscado);
                             oos.writeObject(usuariosBuscados);
                             break;
                     }

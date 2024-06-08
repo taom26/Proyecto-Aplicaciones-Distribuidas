@@ -1,3 +1,4 @@
+/*
 package prj_primer_parcial.aplicacion.pantalla_principal;
 
 import java.awt.*;
@@ -80,3 +81,5 @@ public class PantallaPrincipal extends JFrame {
         });
     }
 }
+
+*/

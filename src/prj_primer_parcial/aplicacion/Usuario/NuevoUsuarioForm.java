@@ -119,14 +119,15 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
             return;
         }
         try (Socket socket = new Socket("localhost", 12345);
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+             
             Usuario usuario = new Usuario(jTextField1.getText(), jTextField2.getText());
 
             oos.writeUTF("insertarUsuario");
-            oos.flush(); // Asegúrate de enviar el comando antes del objeto
+            oos.flush(); // Flush para enviar el comando
             oos.writeObject(usuario);
-            oos.flush(); // Asegúrate de enviar el objeto
+            oos.flush(); // Flush para enviar el objeto
 
             String response = ois.readUTF();
             JOptionPane.showMessageDialog(this, response);

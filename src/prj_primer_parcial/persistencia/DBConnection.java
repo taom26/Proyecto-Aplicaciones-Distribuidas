@@ -1,3 +1,4 @@
+// DBConnection.java
 package prj_primer_parcial.persistencia;
 
 import java.sql.Connection;
