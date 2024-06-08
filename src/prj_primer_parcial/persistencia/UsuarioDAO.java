@@ -31,11 +31,11 @@ public class UsuarioDAO {
         }
     }
 
-    public void eliminarUsuario(String usuario) throws SQLException {
-        String sql = "DELETE FROM user WHERE usuario = ?";
+    public void eliminarUsuario(String id_use) throws SQLException {
+        String sql = "DELETE FROM user WHERE id_use = ?";
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, usuario);
+            ps.setString(1, id_use);
             ps.executeUpdate();
         }
     }

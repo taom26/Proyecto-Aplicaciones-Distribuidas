@@ -79,6 +79,11 @@ public class UsuarioForm extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Eliminar usuario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton3.setText("Actualizar usuario");
@@ -174,6 +179,30 @@ public class UsuarioForm extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this); 
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar");
+            return;
+        }
+        String ruc = (String) jTable1.getValueAt(selectedRow, 0);
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("eliminarCliente");
+            oos.writeUTF(ruc);
+            oos.flush();
+
+            String response = ois.readUTF();
+            JOptionPane.showMessageDialog(this, response);
+            obtenerUsuarios();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al eliminar el cliente");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
