@@ -5,6 +5,12 @@
  */
 package prj_primer_parcial.aplicacion.pantalla_principal;
 
+import javax.swing.JDialog;
+import prj_primer_parcial.aplicacion.Usuario.UsuarioForm;
+import prj_primer_parcial.aplicacion.Inventario.InventarioForm;
+import prj_primer_parcial.aplicacion.Facturacion.FacturacionForm;
+
+
 /**
  *
  * @author bptec
@@ -39,12 +45,27 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton1.setText("Usuarios");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Inventario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton3.setText("Facturacion");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton4.setText("Cuentas por cobrar");
@@ -52,6 +73,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton5.setText("Contabilidad");
 
+        jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -96,6 +118,36 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        UsuarioForm usuarioForm = new UsuarioForm();
+        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        dialog.getContentPane().add(usuarioForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        InventarioForm inventarioForm = new InventarioForm();
+        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        dialog.getContentPane().add(inventarioForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        FacturacionForm facturacionForm = new FacturacionForm();
+        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        dialog.getContentPane().add(facturacionForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
