@@ -4,8 +4,9 @@ import java.awt.*;
 import java.net.URL;
 import javax.swing.*;
 
-import prj_primer_parcial.aplicacion.Cliente.ClienteForm;
+import prj_primer_parcial.aplicacion.Usuario.ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR;
 import prj_primer_parcial.aplicacion.Inventario.InventarioForm;
+import prj_primer_parcial.aplicacion.Facturacion.FacturacionForm;
 
 public class PantallaPrincipal extends JFrame {
     private JPanel contentPanel;
@@ -23,6 +24,7 @@ public class PantallaPrincipal extends JFrame {
         MenuPanel menuPanel = new MenuPanel();
         menuPanel.getBotonClientes().addActionListener(e -> mostrarPantallaClientes());
         menuPanel.getBotonInventario().addActionListener(e -> mostrarPantallaInventario());
+        menuPanel.getBotonFacturacion().addActionListener(e -> mostrarPantallaFacturacion());
 
         contentPanel.add(menuPanel, BorderLayout.WEST);
         contentPanel.add(mainPanel, BorderLayout.CENTER);
@@ -35,7 +37,7 @@ public class PantallaPrincipal extends JFrame {
     }
 
     private void mostrarPantallaClientes() {
-        ClienteForm clienteForm = new ClienteForm();
+        ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR clienteForm = new ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR();
         JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
         dialog.getContentPane().add(clienteForm.getContentPane());
         dialog.pack();
@@ -47,6 +49,15 @@ public class PantallaPrincipal extends JFrame {
         InventarioForm inventarioForm = new InventarioForm();
         JDialog dialog = new JDialog(this, "Gestión de Inventario", true);
         dialog.getContentPane().add(inventarioForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }
+    
+    private void mostrarPantallaFacturacion() {
+        FacturacionForm facturacionForm = new FacturacionForm();
+        JDialog dialog = new JDialog(this, "Facturacion", true);
+        dialog.getContentPane().add(facturacionForm.getContentPane());
         dialog.pack();
         dialog.setLocationRelativeTo(this); 
         dialog.setVisible(true);

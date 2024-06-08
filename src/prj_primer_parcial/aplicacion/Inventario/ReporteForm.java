@@ -78,7 +78,7 @@ public class ReporteForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jLabel1.setText("Saldos por artículo");
+        jLabel1.setText("Reporte 1");
 
         jLabel2.setText("_____________________________________________________________________________________________________________");
 

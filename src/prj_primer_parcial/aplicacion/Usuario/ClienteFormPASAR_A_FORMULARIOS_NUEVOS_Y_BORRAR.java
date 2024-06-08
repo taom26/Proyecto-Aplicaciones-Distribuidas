@@ -1,4 +1,4 @@
-package prj_primer_parcial.aplicacion.Cliente;
+package prj_primer_parcial.aplicacion.Usuario;
 
 import prj_primer_parcial.negocio.Cliente;
 import java.io.ObjectInputStream;
@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class ClienteForm extends JFrame {
+public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
     private JTextField rucField;
     private JTextField nombreField;
     private JTextField direccionField;
@@ -24,7 +24,7 @@ public class ClienteForm extends JFrame {
     private JTable clientesTable;
     private DefaultTableModel tableModel;
 
-    public ClienteForm() {
+    public ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR() {
         setTitle("Gestión de Clientes");
         setSize(550, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -207,7 +207,7 @@ public class ClienteForm extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            ClienteForm form = new ClienteForm();
+            ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR form = new ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR();
             form.setVisible(true);
         });
     }

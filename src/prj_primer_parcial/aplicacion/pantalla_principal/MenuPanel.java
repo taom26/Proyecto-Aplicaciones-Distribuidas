@@ -33,4 +33,8 @@ public class MenuPanel extends JPanel {
     public JButton getBotonInventario() {
         return inventariosButton;
     }
+    
+    public JButton getBotonFacturacion() {
+        return facturacionButton;
+    }
 }
