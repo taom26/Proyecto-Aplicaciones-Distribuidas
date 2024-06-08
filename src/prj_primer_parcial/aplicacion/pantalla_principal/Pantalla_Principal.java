@@ -132,7 +132,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         InventarioForm inventarioForm = new InventarioForm();
-        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        JDialog dialog = new JDialog(this, "Inventario", true);
         dialog.getContentPane().add(inventarioForm.getContentPane());
         dialog.pack();
         dialog.setLocationRelativeTo(this); 
@@ -142,7 +142,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         FacturacionForm facturacionForm = new FacturacionForm();
-        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        JDialog dialog = new JDialog(this, "Facturacion", true);
         dialog.getContentPane().add(facturacionForm.getContentPane());
         dialog.pack();
         dialog.setLocationRelativeTo(this); 
