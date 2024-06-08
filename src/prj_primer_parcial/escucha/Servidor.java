@@ -1,7 +1,7 @@
 package prj_primer_parcial.escucha;
 
-import prj_primer_parcial.negocio.Cliente;
-import prj_primer_parcial.persistencia.ClienteDAO;
+import prj_primer_parcial.negocio.Usuario;
+import prj_primer_parcial.persistencia.UsuarioDAO;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,31 +20,31 @@ public class Servidor {
                      ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
                     String action = ois.readUTF();
-                    ClienteDAO clienteDAO = new ClienteDAO();
+                    UsuarioDAO usuarioDAO = new UsuarioDAO();
                     switch (action) {
-                        case "insertarCliente":
-                            Cliente clienteInsertar = (Cliente) ois.readObject();
-                            clienteDAO.insertarCliente(clienteInsertar);
-                            oos.writeUTF("Cliente insertado correctamente");
+                        case "insertarUsuario":
+                            Usuario usuarioInsertar = (Usuario) ois.readObject();
+                            usuarioDAO.insertarUsuario(usuarioInsertar);
+                            oos.writeUTF("Usuario insertado correctamente");
                             break;
-                        case "actualizarCliente":
-                            Cliente clienteActualizar = (Cliente) ois.readObject();
-                            clienteDAO.actualizarCliente(clienteActualizar);
-                            oos.writeUTF("Cliente actualizado correctamente");
+                        case "actualizarUsuario":
+                            Usuario usuarioActualizar = (Usuario) ois.readObject();
+                            usuarioDAO.actualizarUsuario(usuarioActualizar);
+                            oos.writeUTF("Usuario actualizado correctamente");
                             break;
-                        case "obtenerClientes":
-                            List<Cliente> clientes = clienteDAO.obtenerClientes();
-                            oos.writeObject(clientes);
+                        case "obtenerUsuarios":
+                            List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();
+                            oos.writeObject(usuarios);
                             break;
-                        case "eliminarCliente":
-                            String ruc = ois.readUTF();
-                            clienteDAO.eliminarCliente(ruc);
+                        case "eliminarUsuario":
+                            String usuario = ois.readUTF();
+                            usuarioDAO.eliminarUsuario(usuario);
                             oos.writeUTF("Cliente eliminado correctamente");
                             break;
-                        case "buscarClientes":
-                            String nombre = ois.readUTF();
-                            List<Cliente> clientesBuscados = clienteDAO.buscarClientes(nombre);
-                            oos.writeObject(clientesBuscados);
+                        case "buscarUsuarios":
+                            String usuario2 = ois.readUTF();
+                            List<Usuario> usuariosBuscados = usuarioDAO.buscarUsuarios(usuario2);
+                            oos.writeObject(usuariosBuscados);
                             break;
                     }
                     oos.flush();

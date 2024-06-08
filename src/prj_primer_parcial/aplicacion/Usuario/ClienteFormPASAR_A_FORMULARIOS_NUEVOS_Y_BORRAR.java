@@ -1,6 +1,6 @@
 package prj_primer_parcial.aplicacion.Usuario;
 
-import prj_primer_parcial.negocio.Cliente;
+import prj_primer_parcial.negocio.Usuario;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -95,7 +95,7 @@ public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
         try (Socket socket = new Socket("localhost", 12345);
              ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-            Cliente cliente = new Cliente(rucField.getText(), nombreField.getText(), direccionField.getText());
+            Usuario cliente = new Usuario(rucField.getText(), nombreField.getText(), direccionField.getText());
 
             oos.writeUTF("insertarCliente");
             oos.writeObject(cliente);
@@ -116,9 +116,9 @@ public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
             oos.flush();
 
             @SuppressWarnings("unchecked")
-            List<Cliente> clientes = (List<Cliente>) ois.readObject();
+            List<Usuario> clientes = (List<Usuario>) ois.readObject();
             tableModel.setRowCount(0);  // Limpiar la tabla
-            for (Cliente cliente : clientes) {
+            for (Usuario cliente : clientes) {
                 tableModel.addRow(new Object[]{cliente.getRuc(), cliente.getNombre(), cliente.getDireccion()});
             }
         } catch (Exception e) {
@@ -166,7 +166,7 @@ public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
         try (Socket socket = new Socket("localhost", 12345);
              ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-            Cliente cliente = new Cliente(ruc, nombre, direccion);
+            Usuario cliente = new Usuario(ruc, nombre, direccion);
 
             oos.writeUTF("actualizarCliente");
             oos.writeObject(cliente);
@@ -194,9 +194,9 @@ public class ClienteFormPASAR_A_FORMULARIOS_NUEVOS_Y_BORRAR extends JFrame {
             oos.flush();
 
             @SuppressWarnings("unchecked")
-            List<Cliente> clientes = (List<Cliente>) ois.readObject();
+            List<Usuario> clientes = (List<Usuario>) ois.readObject();
             tableModel.setRowCount(0);  // Limpiar la tabla
-            for (Cliente cliente : clientes) {
+            for (Usuario cliente : clientes) {
                 tableModel.addRow(new Object[]{cliente.getRuc(), cliente.getNombre(), cliente.getDireccion()});
             }
         } catch (Exception e) {

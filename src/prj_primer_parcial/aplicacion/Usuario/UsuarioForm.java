@@ -5,6 +5,9 @@
  */
 package prj_primer_parcial.aplicacion.Usuario;
 
+import javax.swing.JDialog;
+import prj_primer_parcial.aplicacion.Usuario.NuevoUsuarioForm;
+
 /**
  *
  * @author bptec
@@ -40,6 +43,11 @@ public class UsuarioForm extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton1.setText("Crear nuevo usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Eliminar usuario");
@@ -221,6 +229,16 @@ public class UsuarioForm extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        NuevoUsuarioForm nuevoUsuarioForm = new NuevoUsuarioForm();
+        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        dialog.getContentPane().add(nuevoUsuarioForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
