@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
+import prj_primer_parcial.negocio.Articulo;
+import prj_primer_parcial.persistencia.ArticuloDAO;
 
 public class Servidor {
 
@@ -22,6 +24,7 @@ public class Servidor {
 
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
+                    ArticuloDAO articuloDAO = new ArticuloDAO();
 
                     switch (action) {
                         case "insertarUsuario":
@@ -43,6 +46,26 @@ public class Servidor {
                             String usuarioBuscado = ois.readUTF();
                             List<Usuario> usuariosBuscados = usuarioDAO.buscarUsuarios(usuarioBuscado);
                             oos.writeObject(usuariosBuscados);
+                            break;
+                        case "insertarArticulo":
+                            Articulo articuloInsertar = (Articulo) ois.readObject();
+                            articuloDAO.insertarArticulo(articuloInsertar);
+                            oos.writeUTF("Articulo insertado correctamente");
+                            break;
+                        case "actualizarArticulo":
+                            Articulo articuloActualizar = (Articulo) ois.readObject();
+                            articuloDAO.actualizarArticulo(articuloActualizar);
+                            oos.writeUTF("Articulo actualizado con éxito");
+                            break;
+                        case "eliminarArticulo":
+                            String articuloEliminar = ois.readUTF();
+                            articuloDAO.eliminarArticulo(articuloEliminar);
+                            oos.writeUTF("Articulo eliminado correctamente");
+                            break;
+                        case "buscarArticulos":
+                            String articuloBuscado = ois.readUTF();
+                            List<Articulo> articulosBuscados = articuloDAO.buscarArticulos(articuloBuscado);
+                            oos.writeObject(articulosBuscados);
                             break;
                         default:
                             oos.writeUTF("Acción no reconocida");

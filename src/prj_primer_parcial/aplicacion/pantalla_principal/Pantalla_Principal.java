@@ -24,6 +24,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
      */
     public Pantalla_Principal() {
         initComponents();
+        this.setTitle("Menú de Inicio");
     }
 
     /**

@@ -5,7 +5,14 @@
  */
 package prj_primer_parcial.aplicacion.Inventario;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import prj_primer_parcial.negocio.Articulo;
 
 /**
  *
@@ -18,6 +25,27 @@ public class Simple_1_Form extends javax.swing.JFrame {
      */
     public Simple_1_Form() {
         initComponents();
+        obtenerArticulos();
+    }
+    
+    private void obtenerArticulos() {
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("obtenerArticulos");
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Articulo> articulos = (List<Articulo>) ois.readObject();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Articulo articulo : articulos) {
+                model.addRow(new Object[]{articulo.getNombre(), articulo.getPrecio()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al obtener los articulos");
+        }
     }
 
     /**
@@ -186,6 +214,11 @@ public class Simple_1_Form extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/search.png"))); // NOI18N
         jButton5.setText("Buscar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTextField1.setText("Búsqueda por nombre....");
@@ -249,7 +282,31 @@ public class Simple_1_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-          
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un articulo a eliminar.");
+            return;
+        }
+        String articulo = jTable1.getValueAt(selectedRow, 0).toString();
+
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("eliminarUsuario");
+            oos.writeUTF(articulo);
+            oos.flush();
+            String respuesta = ois.readUTF();
+            JOptionPane.showMessageDialog(this, respuesta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al eliminar el articulo");
+        }
+
+        // Actualiza la tabla
+        obtenerArticulos();  
+        
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -261,6 +318,40 @@ public class Simple_1_Form extends javax.swing.JFrame {
       dialog.setVisible(true);  
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String articulo = jTextField1.getText();
+        if (articulo.trim().isEmpty()) {
+            buscarArticulos(articulo);
+            return;
+        }
+        buscarArticulos(articulo);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void buscarArticulos(String articuloBuscado) {
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("buscarArticulos");
+            oos.writeUTF(articuloBuscado);
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Articulo> articulos = (List<Articulo>) ois.readObject();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Articulo articulo : articulos) {
+                model.addRow(new Object[]{articulo.getNombre(), articulo.getNombre()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar los articulos");
+        }
+    }
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */

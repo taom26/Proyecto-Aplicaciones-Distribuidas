@@ -3,22 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/FacturacionForm.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_facturacion.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_agregar.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/escucha/Servidor.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_reporte11.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/pantalla_principal/Pantalla_Principal.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_reporte22.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/negocio/Usuario.java</file>
             <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/persistencia/DBConnection.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Inventario/Simple_1_Crear_Form.java</file>
             <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/persistencia/UsuarioDAO.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/escucha/Servidor.java</file>
             <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Usuario/UsuarioForm.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Usuario/ActualizarUsuarioForm.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_agregarciu.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_complejo.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Facturacion/Pantalla_modificarclie.java</file>
-            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Usuario/NuevoUsuarioForm.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/negocio/Articulo.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/persistencia/ArticuloDAO.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/negocio/Usuario.java</file>
+            <file>file:/C:/Users/bptec/OneDrive/Documentos/NetBeansProjects/prj_primer_parcial/src/prj_primer_parcial/aplicacion/Inventario/Simple_1_Form.java</file>
         </group>
     </open-files>
 </project-private>

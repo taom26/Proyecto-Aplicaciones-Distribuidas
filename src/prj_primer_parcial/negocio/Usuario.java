@@ -1,4 +1,3 @@
-// Usuario.java
 package prj_primer_parcial.negocio;
 
 import java.io.Serializable;
