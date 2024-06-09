@@ -11,8 +11,6 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 import prj_primer_parcial.negocio.Usuario;
 
-import prj_primer_parcial.aplicacion.Usuario.UsuarioForm;
-
 /**
  *
  * @author bptec
@@ -48,6 +46,7 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
         jLabel1.setText("Crear un nuevo usuario");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuario:");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -63,7 +62,7 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Crear");
+        jButton1.setText("Crear Usuario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -81,17 +80,17 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(jTextField2)))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(jTextField1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jButton1)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(139, 139, 139)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,10 +171,8 @@ public class NuevoUsuarioForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NuevoUsuarioForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NuevoUsuarioForm().setVisible(true);
         });
     }
 

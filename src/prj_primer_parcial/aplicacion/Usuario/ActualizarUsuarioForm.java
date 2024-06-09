@@ -11,8 +11,6 @@ package prj_primer_parcial.aplicacion.Usuario;
  */
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -21,11 +19,13 @@ import prj_primer_parcial.negocio.Usuario;
 
 public class ActualizarUsuarioForm extends javax.swing.JFrame {
     
-    private UsuarioForm parent;
-    private String usuario;
+    private final UsuarioForm parent;
+    private final String usuario;
 
     /**
      * Creates new form ActualizarUsuarioForm
+     * @param parent
+     * @param usuario
      */
     public ActualizarUsuarioForm(UsuarioForm parent, String usuario) {
         this.parent = parent;
@@ -67,7 +67,7 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Crear");
+        jButton1.setText("Actualizar usuario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -78,9 +78,11 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
         jLabel1.setText("Modificar usuario");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Contraseña:");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,17 +95,17 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(jTextField2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addComponent(jButton1)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +151,6 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
 
             dispose();
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al actualizar el usuario");
         }
         
@@ -167,11 +168,9 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                // Replace this with an actual parent and user for proper testing
-                new ActualizarUsuarioForm(null, "testUser").setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            // Replace this with an actual parent and user for proper testing
+            new ActualizarUsuarioForm(null, "testUser").setVisible(true);
         });
     }
 
