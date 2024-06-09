@@ -18,8 +18,8 @@ public class Servidor {
             System.out.println("Servidor iniciado y escuchando en el puerto " + PORT);
             while (true) {
                 try (Socket socket = serverSocket.accept();
-                        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
                     switch (action) {
@@ -29,24 +29,9 @@ public class Servidor {
                             oos.writeUTF("Usuario insertado correctamente");
                             break;
                         case "actualizarUsuario":
-                            String usuarioOriginal = ois.readUTF();
-                            String nuevoUsuario = ois.readUTF();
-                            String nuevaContrasenia = ois.readUTF();
-
-                            Usuario usuario = new Usuario(usuarioOriginal, ""); // Assuming password is not needed for update
-                            usuario.setUsuario(nuevoUsuario);
-                            usuario.setPassword(nuevaContrasenia);
-
-                            try {
-                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                                usuarioDAO.actualizarUsuario(usuario);
-                                oos.writeUTF("Usuario actualizado exitosamente!");
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                                oos.writeUTF("Error al actualizar el usuario");
-                            }
-
-                            oos.flush();
+                            Usuario usuarioActualizar = (Usuario) ois.readObject();
+                            usuarioDAO.actualizarUsuario(usuarioActualizar);
+                            oos.writeUTF("Usuario actualizado correctamente");
                             break;
                         case "obtenerUsuarios":
                             List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();

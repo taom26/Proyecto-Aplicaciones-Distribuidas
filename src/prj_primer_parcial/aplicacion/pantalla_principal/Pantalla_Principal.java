@@ -9,6 +9,8 @@ import javax.swing.JDialog;
 import prj_primer_parcial.aplicacion.Usuario.UsuarioForm;
 import prj_primer_parcial.aplicacion.Inventario.InventarioForm;
 import prj_primer_parcial.aplicacion.Facturacion.FacturacionForm;
+import prj_primer_parcial.aplicacion.cont.ContForm;
+import prj_primer_parcial.aplicacion.cxc.CxcForm;
 
 
 /**
@@ -69,9 +71,19 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton4.setText("Cuentas por cobrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton5.setText("Contabilidad");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -122,7 +134,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         UsuarioForm usuarioForm = new UsuarioForm();
-        JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
+        JDialog dialog = new JDialog(this, "Gestión de Usuarios", true);
         dialog.getContentPane().add(usuarioForm.getContentPane());
         dialog.pack();
         dialog.setLocationRelativeTo(this); 
@@ -148,6 +160,24 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this); 
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CxcForm CxcForm = new CxcForm();
+        JDialog dialog = new JDialog(this, "Cuentas X Cobrar", true);
+        dialog.getContentPane().add(CxcForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ContForm ContForm = new ContForm();
+        JDialog dialog = new JDialog(this, "Contabilidad", true);
+        dialog.getContentPane().add(ContForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this); 
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
