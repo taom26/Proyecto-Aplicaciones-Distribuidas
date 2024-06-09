@@ -19,13 +19,13 @@ public class Servidor {
             System.out.println("Servidor iniciado y escuchando en el puerto " + PORT);
             while (true) {
                 try (Socket socket = serverSocket.accept();
-                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+                        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
 
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
                     ArticuloDAO articuloDAO = new ArticuloDAO();
-                
+
                     switch (action) {
                         case "insertarUsuario":
                             Usuario usuarioInsertar = (Usuario) ois.readObject();
@@ -62,7 +62,9 @@ public class Servidor {
                             oos.writeUTF("Articulo actualizado con éxito");
                             break;
                         case "obtenerArticulos":
+                            System.out.println("Solicitud de obtener articulos recibida");
                             List<Articulo> articulos = articuloDAO.obtenerArticulos();
+                            System.out.println("Articulos obtenidos: " + articulos.size());
                             oos.writeObject(articulos);
                             break;
                         case "eliminarArticulo":
@@ -79,7 +81,7 @@ public class Servidor {
                             oos.writeUTF("Acción no reconocida");
                             break;
                     }
-                    oos.flush();  
+                    oos.flush();
                 } catch (IOException | ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }

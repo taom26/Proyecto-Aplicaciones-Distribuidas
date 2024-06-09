@@ -31,11 +31,12 @@ public class ArticuloDAO {
     }
 
     public void actualizarArticulo(Articulo articulo) throws SQLException {
-        String sql = "UPDATE inv_sim_1 SET nombre_inv = ?, precio_inv = ? WHERE codigo = ?";
+        String sql = "UPDATE inv_sim_1 SET codigo = ?, nombre_inv = ?, precio_inv = ? WHERE codigo = ?";
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, articulo.getNombre());
-            ps.setString(2, articulo.getPrecio());
+            ps.setString(1, articulo.getCodigo());
+            ps.setString(2, articulo.getNombre());
+            ps.setString(3, articulo.getPrecio());
             ps.executeUpdate();
         }
     }

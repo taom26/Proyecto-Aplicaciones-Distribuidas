@@ -29,28 +29,28 @@ public class UsuarioForm extends javax.swing.JFrame {
     }
 
     private void obtenerUsuarios() {
-    try (Socket socket = new Socket("localhost", 12345);
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-        
-        oos.writeUTF("obtenerUsuarios");
-        oos.flush();
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
 
-        @SuppressWarnings("unchecked")
-        List<Usuario> usuarios = (List<Usuario>) ois.readObject();
-        
-        System.out.println("Usuarios obtenidos: " + usuarios.size());
-        
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        for (Usuario usuario : usuarios) {
-            model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
+            oos.writeUTF("obtenerUsuarios");
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Usuario> usuarios = (List<Usuario>) ois.readObject();
+
+            System.out.println("Usuarios obtenidos: " + usuarios.size());
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Usuario usuario : usuarios) {
+                model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al obtener los usuarios: " + e.getMessage());
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al obtener los usuarios: " + e.getMessage());
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,22 +192,22 @@ public class UsuarioForm extends javax.swing.JFrame {
     private void actualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarUsuarioActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a modificar.");
-        return;
-    }
-    String usuario = jTable1.getValueAt(selectedRow, 0).toString();
-    
-    // Abre ActualizarUsuarioForm con el usuario seleccionado
-    ActualizarUsuarioForm actualizarUsuarioForm = new ActualizarUsuarioForm(this, usuario);
-    JDialog dialog = new JDialog(this, "Actualizar Usuario", true);
-    dialog.getContentPane().add(actualizarUsuarioForm.getContentPane());
-    dialog.pack();
-    dialog.setLocationRelativeTo(this);
-    dialog.setVisible(true);
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a modificar.");
+            return;
+        }
+        String usuario = jTable1.getValueAt(selectedRow, 0).toString();
 
-    // Actualiza la tabla después de cerrar el diálogo
-    obtenerUsuarios();
+        // Abre ActualizarUsuarioForm con el usuario seleccionado
+        ActualizarUsuarioForm actualizarUsuarioForm = new ActualizarUsuarioForm(this, usuario);
+        JDialog dialog = new JDialog(this, "Actualizar Usuario", true);
+        dialog.getContentPane().add(actualizarUsuarioForm.getContentPane());
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+
+        // Actualiza la tabla después de cerrar el diálogo
+        obtenerUsuarios();
 
     }//GEN-LAST:event_actualizarUsuarioActionPerformed
 

@@ -29,27 +29,31 @@ public class Simple_1_Form extends javax.swing.JFrame {
     }
 
     private void obtenerArticulos() {
-    try (Socket socket = new Socket("localhost", 12345);
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-        
-        oos.writeUTF("obtenerArticulos");
-        oos.flush();
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
 
-        @SuppressWarnings("unchecked")
-        List<Articulo> articulos = (List<Articulo>) ois.readObject();
-        
-        System.out.println("Articulos obtenidos: " + articulos.size());
-        
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        for (Articulo articulo : articulos) {
-            model.addRow(new Object[]{articulo.getCodigo(), articulo.getNombre(), articulo.getPrecio()});
+            oos.writeUTF("obtenerArticulos");
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Articulo> articulos = (List<Articulo>) ois.readObject();
+
+            System.out.println("Articulos obtenidos: " + articulos.size());
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Articulo articulo : articulos) {
+                model.addRow(new Object[]{articulo.getCodigo(), articulo.getNombre(), articulo.getPrecio()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = e.getMessage();
+            if (errorMessage == null) {
+                errorMessage = "Unknown error";
+            }
+            JOptionPane.showMessageDialog(this, "Error al obtener los articulos: " + errorMessage);
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al obtener los articulos: " + e.getMessage());
-    }
     }
 
     /**
