@@ -29,24 +29,28 @@ public class UsuarioForm extends javax.swing.JFrame {
     }
 
     private void obtenerUsuarios() {
-        try (Socket socket = new Socket("localhost", 12345);
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-            oos.writeUTF("obtenerUsuarios");
-            oos.flush();
+    try (Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+        
+        oos.writeUTF("obtenerUsuarios");
+        oos.flush();
 
-            @SuppressWarnings("unchecked")
-            List<Usuario> usuarios = (List<Usuario>) ois.readObject();
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
-            for (Usuario usuario : usuarios) {
-                model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al obtener los usuarios");
+        @SuppressWarnings("unchecked")
+        List<Usuario> usuarios = (List<Usuario>) ois.readObject();
+        
+        System.out.println("Usuarios obtenidos: " + usuarios.size());
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Usuario usuario : usuarios) {
+            model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al obtener los usuarios: " + e.getMessage());
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,7 +212,6 @@ public class UsuarioForm extends javax.swing.JFrame {
     }//GEN-LAST:event_actualizarUsuarioActionPerformed
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
-        // TODO add your handling code here:
         NuevoUsuarioForm nuevoUsuarioForm = new NuevoUsuarioForm();
         JDialog dialog = new JDialog(this, "Gestión de Clientes", true);
         dialog.getContentPane().add(nuevoUsuarioForm.getContentPane());
@@ -220,7 +223,6 @@ public class UsuarioForm extends javax.swing.JFrame {
 
 
     private void eliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarUsuarioActionPerformed
-        // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a eliminar.");
@@ -228,7 +230,6 @@ public class UsuarioForm extends javax.swing.JFrame {
         }
         String usuario = jTable1.getValueAt(selectedRow, 0).toString();
 
-        // Solicita eliminar el usuario al servidor
         try (Socket socket = new Socket("localhost", 12345);
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {

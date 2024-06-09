@@ -25,7 +25,7 @@ public class Servidor {
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
                     ArticuloDAO articuloDAO = new ArticuloDAO();
-
+                
                     switch (action) {
                         case "insertarUsuario":
                             Usuario usuarioInsertar = (Usuario) ois.readObject();
@@ -36,6 +36,10 @@ public class Servidor {
                             Usuario usuarioActualizar = (Usuario) ois.readObject();
                             usuarioDAO.actualizarUsuario(usuarioActualizar);
                             oos.writeUTF("Usuario actualizado con éxito");
+                            break;
+                        case "obtenerUsuarios":
+                            List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();
+                            oos.writeObject(usuarios);
                             break;
                         case "eliminarUsuario":
                             String usuarioEliminar = ois.readUTF();
@@ -57,6 +61,10 @@ public class Servidor {
                             articuloDAO.actualizarArticulo(articuloActualizar);
                             oos.writeUTF("Articulo actualizado con éxito");
                             break;
+                        case "obtenerArticulos":
+                            List<Articulo> articulos = articuloDAO.obtenerArticulos();
+                            oos.writeObject(articulos);
+                            break;
                         case "eliminarArticulo":
                             String articuloEliminar = ois.readUTF();
                             articuloDAO.eliminarArticulo(articuloEliminar);
@@ -71,7 +79,7 @@ public class Servidor {
                             oos.writeUTF("Acción no reconocida");
                             break;
                     }
-                    oos.flush();
+                    oos.flush();  
                 } catch (IOException | ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
