@@ -39,9 +39,8 @@ public class UsuarioForm extends javax.swing.JFrame {
             List<Usuario> usuarios = (List<Usuario>) ois.readObject();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            model.setColumnIdentifiers(new Object[]{"ID", "Usuario", "Contraseña"});
             for (Usuario usuario : usuarios) {
-                model.addRow(new Object[]{usuario.getId(), usuario.getUsuario(), usuario.getPassword()});
+                model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,14 +104,14 @@ public class UsuarioForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null}
             },
             new String [] {
-                "ID", "User", "Password"
+                "User", "Password"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -185,24 +184,27 @@ public class UsuarioForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a eliminar.");
             return;
         }
-        String id_use = (String) jTable1.getValueAt(selectedRow, 1); // Asumiendo que id_use está en la segunda columna
+        String usuario = jTable1.getValueAt(selectedRow, 0).toString();
+
+        // Solicita eliminar el usuario al servidor
         try (Socket socket = new Socket("localhost", 12345);
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
             oos.writeUTF("eliminarUsuario");
-            oos.writeUTF(id_use);
+            oos.writeUTF(usuario);
             oos.flush();
-
-            String response = ois.readUTF();
-            JOptionPane.showMessageDialog(this, response);
-            obtenerUsuarios();
+            String respuesta = ois.readUTF();
+            JOptionPane.showMessageDialog(this, respuesta);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al eliminar el usuario");
         }
+
+        // Actualiza la tabla
+        obtenerUsuarios();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

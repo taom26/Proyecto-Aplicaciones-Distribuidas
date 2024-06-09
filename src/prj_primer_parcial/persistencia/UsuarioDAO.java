@@ -26,19 +26,19 @@ public class UsuarioDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, usuario.getUsuario());
             ps.setString(2, usuario.getPassword());
-            ps.setString(3, usuario.getId());
+            ps.setString(3, usuario.getUsuario()); // Corrige esta línea
             ps.executeUpdate();
         }
     }
 
-    public void eliminarUsuario(String id_use) throws SQLException {
-    String sql = "DELETE FROM user WHERE id_use = ?";
-    try (Connection con = DBConnection.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, id_use);
-        ps.executeUpdate();
+    public void eliminarUsuario(String usuario) throws SQLException {
+        String sql = "DELETE FROM user WHERE usuario = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, usuario);
+            ps.executeUpdate();
+        }
     }
-}
 
     public List<Usuario> obtenerUsuarios() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
@@ -48,7 +48,6 @@ public class UsuarioDAO {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario usuario = new Usuario(
-                        rs.getString("id_use"),
                         rs.getString("usuario"),
                         rs.getString("password")
                 );
@@ -67,7 +66,6 @@ public class UsuarioDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Usuario user = new Usuario(
-                            rs.getString("id_use"),
                             rs.getString("usuario"),
                             rs.getString("password")
                     );
