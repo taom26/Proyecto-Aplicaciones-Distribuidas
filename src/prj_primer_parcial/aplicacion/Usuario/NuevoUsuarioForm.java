@@ -11,6 +11,8 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 import prj_primer_parcial.negocio.Usuario;
 
+import prj_primer_parcial.aplicacion.Usuario.UsuarioForm;
+
 /**
  *
  * @author bptec

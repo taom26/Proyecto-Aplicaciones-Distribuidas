@@ -5,6 +5,8 @@
  */
 package prj_primer_parcial.aplicacion.Inventario;
 
+import javax.swing.JDialog;
+
 /**
  *
  * @author bptec
@@ -79,13 +81,26 @@ public class Simple_2_Form extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/plus.png"))); // NOI18N
         jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/minus.png"))); // NOI18N
         jButton2.setText("Eliminar");
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/refresh.png"))); // NOI18N
         jButton4.setText("Actualizar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +148,24 @@ public class Simple_2_Form extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      Simple_2_Crear_Form Simple2CrearForm = new Simple_2_Crear_Form();
+      JDialog dialog = new JDialog(this, "Agregar ", true);
+      dialog.getContentPane().add(Simple2CrearForm.getContentPane());
+      dialog.pack();
+      dialog.setLocationRelativeTo(this); 
+      dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      Simple_2_Actualizar_Form Simple2ModificarForm = new Simple_2_Actualizar_Form();
+      JDialog dialog = new JDialog(this, "Actualizar ", true);
+      dialog.getContentPane().add(Simple2ModificarForm.getContentPane());
+      dialog.pack();
+      dialog.setLocationRelativeTo(this); 
+      dialog.setVisible(true);                         
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

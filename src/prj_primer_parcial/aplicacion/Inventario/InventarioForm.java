@@ -93,6 +93,7 @@ public class InventarioForm extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/reporte-de-negocios (1).png"))); // NOI18N
         jButton4.setText("Reporte 1");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +102,7 @@ public class InventarioForm extends javax.swing.JFrame {
         });
 
         jButton5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prj_primer_parcial/assets/reporte-de-negocios (1).png"))); // NOI18N
         jButton5.setText("Reporte 2");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
