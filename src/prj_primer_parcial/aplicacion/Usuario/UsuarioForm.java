@@ -94,9 +94,19 @@ public class UsuarioForm extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTextField1.setText("Buscar...");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -177,6 +187,7 @@ public class UsuarioForm extends javax.swing.JFrame {
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
+        obtenerUsuarios();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -206,6 +217,44 @@ public class UsuarioForm extends javax.swing.JFrame {
         // Actualiza la tabla
         obtenerUsuarios();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String usuario = jTextField1.getText();
+        if (usuario.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un nombre de usuario para buscar.");
+            return;
+        }
+
+        buscarUsuarios(usuario);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void buscarUsuarios(String usuarioBuscado) {
+        try (Socket socket = new Socket("localhost", 12345);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+            oos.writeUTF("buscarUsuarios");
+            oos.writeUTF(usuarioBuscado);
+            oos.flush();
+
+            @SuppressWarnings("unchecked")
+            List<Usuario> usuarios = (List<Usuario>) ois.readObject();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Usuario usuario : usuarios) {
+                model.addRow(new Object[]{usuario.getUsuario(), usuario.getPassword()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar los usuarios");
+        }
+    }
 
     /**
      * @param args the command line arguments
