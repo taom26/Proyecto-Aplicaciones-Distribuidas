@@ -181,11 +181,22 @@ public class UsuarioForm extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a modificar.");
-            return;
-        }
-        String usuario = jTable1.getValueAt(selectedRow, 0).toString();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario a modificar.");
+        return;
+    }
+    String usuario = jTable1.getValueAt(selectedRow, 0).toString();
+    
+    // Abre ActualizarUsuarioForm con el usuario seleccionado
+    ActualizarUsuarioForm actualizarUsuarioForm = new ActualizarUsuarioForm(this, usuario);
+    JDialog dialog = new JDialog(this, "Actualizar Usuario", true);
+    dialog.getContentPane().add(actualizarUsuarioForm.getContentPane());
+    dialog.pack();
+    dialog.setLocationRelativeTo(this);
+    dialog.setVisible(true);
+
+    // Actualiza la tabla después de cerrar el diálogo
+    obtenerUsuarios();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -237,7 +248,7 @@ public class UsuarioForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario = jTextField1.getText();
         if (usuario.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un nombre de usuario para buscar.");
+            buscarUsuarios(usuario);
             return;
         }
 

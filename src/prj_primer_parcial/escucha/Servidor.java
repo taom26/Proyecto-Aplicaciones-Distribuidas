@@ -1,4 +1,3 @@
-// Servidor.java
 package prj_primer_parcial.escucha;
 
 import prj_primer_parcial.negocio.Usuario;
@@ -20,8 +19,10 @@ public class Servidor {
                 try (Socket socket = serverSocket.accept();
                      ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
+
                     switch (action) {
                         case "insertarUsuario":
                             Usuario usuarioInsertar = (Usuario) ois.readObject();
@@ -31,21 +32,24 @@ public class Servidor {
                         case "actualizarUsuario":
                             Usuario usuarioActualizar = (Usuario) ois.readObject();
                             usuarioDAO.actualizarUsuario(usuarioActualizar);
-                            oos.writeUTF("Usuario actualizado correctamente");
+                            oos.writeUTF("Usuario actualizado con éxito");
                             break;
                         case "obtenerUsuarios":
                             List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();
                             oos.writeObject(usuarios);
                             break;
                         case "eliminarUsuario":
-                            String usuario = ois.readUTF();
-                            usuarioDAO.eliminarUsuario(usuario);
+                            String usuarioEliminar = ois.readUTF();
+                            usuarioDAO.eliminarUsuario(usuarioEliminar);
                             oos.writeUTF("Usuario eliminado correctamente");
                             break;
                         case "buscarUsuarios":
                             String usuarioBuscado = ois.readUTF();
                             List<Usuario> usuariosBuscados = usuarioDAO.buscarUsuarios(usuarioBuscado);
                             oos.writeObject(usuariosBuscados);
+                            break;
+                        default:
+                            oos.writeUTF("Acción no reconocida");
                             break;
                     }
                     oos.flush();

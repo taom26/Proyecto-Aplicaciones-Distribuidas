@@ -9,13 +9,29 @@ package prj_primer_parcial.aplicacion.Usuario;
  *
  * @author bptec
  */
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import prj_primer_parcial.negocio.Usuario;
+
+
 public class ActualizarUsuarioForm extends javax.swing.JFrame {
+    
+    private UsuarioForm parent;
+    private String usuario;
 
     /**
      * Creates new form ActualizarUsuarioForm
      */
-    public ActualizarUsuarioForm() {
+    public ActualizarUsuarioForm(UsuarioForm parent, String usuario) {
+        this.parent = parent;
+        this.usuario = usuario;
         initComponents();
+        jTextField1.setText(usuario);
     }
 
     /**
@@ -112,9 +128,31 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String nuevoUsuario = jTextField1.getText(); // Assuming jTextField3 is for new username
-        String nuevaContrasenia = jTextField2.getText(); // Assuming jTextField4 is for new password
+        String nuevoUsuario = jTextField1.getText().trim();
+        String nuevaPassword = jTextField2.getText().trim();
 
+        if (nuevoUsuario.isEmpty() || nuevaPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
+
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+
+            oos.writeUTF("actualizarUsuario");
+            oos.writeObject(new Usuario(nuevoUsuario, nuevaPassword));
+            oos.flush();
+
+            String respuesta = ois.readUTF();
+            JOptionPane.showMessageDialog(this, respuesta);
+
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al actualizar el usuario");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -129,33 +167,10 @@ public class ActualizarUsuarioForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ActualizarUsuarioForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ActualizarUsuarioForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ActualizarUsuarioForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ActualizarUsuarioForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActualizarUsuarioForm().setVisible(true);
+                // Replace this with an actual parent and user for proper testing
+                new ActualizarUsuarioForm(null, "testUser").setVisible(true);
             }
         });
     }
