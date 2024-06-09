@@ -40,23 +40,6 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuario> obtenerUsuarios() throws SQLException {
-        List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM user";
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Usuario usuario = new Usuario(
-                        rs.getString("usuario"),
-                        rs.getString("password")
-                );
-                usuarios.add(usuario);
-            }
-        }
-        return usuarios;
-    }
-
     public List<Usuario> buscarUsuarios(String usuario) throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM user WHERE usuario LIKE ?";

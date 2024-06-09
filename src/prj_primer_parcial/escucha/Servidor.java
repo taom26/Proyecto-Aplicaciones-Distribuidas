@@ -34,10 +34,6 @@ public class Servidor {
                             usuarioDAO.actualizarUsuario(usuarioActualizar);
                             oos.writeUTF("Usuario actualizado con éxito");
                             break;
-                        case "obtenerUsuarios":
-                            List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();
-                            oos.writeObject(usuarios);
-                            break;
                         case "eliminarUsuario":
                             String usuarioEliminar = ois.readUTF();
                             usuarioDAO.eliminarUsuario(usuarioEliminar);

@@ -251,7 +251,6 @@ public class UsuarioForm extends javax.swing.JFrame {
             buscarUsuarios(usuario);
             return;
         }
-
         buscarUsuarios(usuario);
 
     }//GEN-LAST:event_jButton4ActionPerformed
