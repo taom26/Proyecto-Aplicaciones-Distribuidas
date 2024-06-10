@@ -4,6 +4,12 @@
  */
 package prj_primer_parcial.aplicacion.facturacion;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+import prj_primer_parcial.negocio.Facturacion;
+
 /**
  *
  * @author keyne
@@ -44,6 +50,11 @@ public class Pantalla_agregar extends javax.swing.JFrame {
         jLabel3.setText("Dirrecion");
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -94,6 +105,33 @@ public class Pantalla_agregar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
+        }
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+             
+            Facturacion facturacion = new Facturacion(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
+
+            oos.writeUTF("insertarFacturacion");
+            oos.flush();
+            oos.writeObject(facturacion);
+            oos.flush();
+
+            String response = ois.readUTF();
+            JOptionPane.showMessageDialog(this, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar la factura");
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

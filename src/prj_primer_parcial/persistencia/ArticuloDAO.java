@@ -70,7 +70,7 @@ public class ArticuloDAO {
 
     public List<Articulo> buscarArticulos(String articulo) throws SQLException {
         List<Articulo> articulos = new ArrayList<>();
-        String sql = "SELECT * FROM inv_sim_1 WHERE codigo LIKE ?";
+        String sql = "SELECT * FROM inv_sim_1 WHERE codigo LIKE ? OR nombre_inv = ?";
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, "%" + articulo + "%");
