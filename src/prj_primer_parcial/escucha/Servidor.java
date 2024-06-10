@@ -1,14 +1,16 @@
 package prj_primer_parcial.escucha;
 
-import prj_primer_parcial.negocio.Usuario;
-import prj_primer_parcial.persistencia.UsuarioDAO;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
+import prj_primer_parcial.negocio.Usuario;
+import prj_primer_parcial.persistencia.UsuarioDAO;
 import prj_primer_parcial.negocio.Articulo;
+import prj_primer_parcial.negocio.Facturacion;
 import prj_primer_parcial.persistencia.ArticuloDAO;
+import prj_primer_parcial.persistencia.FacturacionDAO;
 
 public class Servidor {
 
@@ -25,6 +27,7 @@ public class Servidor {
                     String action = ois.readUTF();
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
                     ArticuloDAO articuloDAO = new ArticuloDAO();
+                    FacturacionDAO facturacionDAO = new FacturacionDAO();
 
                     switch (action) {
                         case "insertarUsuario":
@@ -77,6 +80,31 @@ public class Servidor {
                             List<Articulo> articulosBuscados = articuloDAO.buscarArticulos(articuloBuscado);
                             oos.writeObject(articulosBuscados);
                             break;
+                         case "insertarFacturacion":
+                            Facturacion facturacionInsertar = (Facturacion) ois.readObject();
+                            facturacionDAO.insertarFacturacion(facturacionInsertar);
+                            oos.writeUTF("Factura insertada correctamente");
+                            break;
+                        case "actualizarFacturacion":
+                            Facturacion facturacionActualizar = (Facturacion) ois.readObject();
+                            facturacionDAO.actualizarFacturacion(facturacionActualizar);
+                            oos.writeUTF("Factura actualizada con éxito");
+                            break;
+                        case "obtenerFacturaciones":
+                            List<Facturacion> facturaciones = facturacionDAO.obtenerFacturaciones();
+                            oos.writeObject(facturaciones);
+                            break;
+                        case "eliminarFacturacion":
+                            String facturacionEliminar = ois.readUTF();
+                            facturacionDAO.eliminarFacturacion(facturacionEliminar);
+                            oos.writeUTF("Usuario eliminado correctamente");
+                            break;
+                        case "buscarFacturaciones":
+                            String facturacionBuscado = ois.readUTF();
+                            List<Facturacion> facturacionesBuscados = facturacionDAO.buscarFacturacion(facturacionBuscado);
+                            oos.writeObject(facturacionesBuscados);
+                            break;                          
+                          
                         default:
                             oos.writeUTF("Acción no reconocida");
                             break;

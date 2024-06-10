@@ -4,6 +4,12 @@
  */
 package prj_primer_parcial.aplicacion.facturacion;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+import prj_primer_parcial.negocio.Facturacion;
+
 /**
  *
  * @author keyne
@@ -38,6 +44,11 @@ public class Pantalla_modificarclie extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -97,6 +108,36 @@ public class Pantalla_modificarclie extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String nuevoRuc = jTextField1.getText().trim();
+        String nuevoNombre = jTextField2.getText().trim();
+        String nuevaDireccion = jTextField3.getText().trim();
+
+        if (nuevoRuc.isEmpty() || nuevoNombre.isEmpty() || nuevaDireccion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
+
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
+
+            oos.writeUTF("actualizarFacturacion");
+            oos.writeObject(new Facturacion(nuevoRuc, nuevoNombre, nuevaDireccion));
+            oos.flush();
+
+            String respuesta = ois.readUTF();
+            JOptionPane.showMessageDialog(this, respuesta);
+
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar la factura");
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
