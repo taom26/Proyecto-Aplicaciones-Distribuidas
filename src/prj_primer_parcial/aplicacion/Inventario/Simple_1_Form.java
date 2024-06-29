@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 import prj_primer_parcial.negocio.Articulo;
+import prj_primer_parcial.aplicacion.Inventario.Simple_2_Actualizar_Form;
 
 /**
  *
@@ -225,12 +226,12 @@ public class Simple_1_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarArticuloActionPerformed
 
     private void actualizarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarArticuloActionPerformed
-        Simple_1_Actualizar_Form Simple1ActualizarForm = new Simple_1_Actualizar_Form();
-        JDialog dialog = new JDialog(this, "Actualizar", true);
-        dialog.getContentPane().add(Simple1ActualizarForm.getContentPane());
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+      Simple_1_Actualizar_Form Simple1ActualizarForm = new Simple_1_Actualizar_Form();
+      JDialog dialog = new JDialog(this, "Modificar Articulo", true);
+      dialog.getContentPane().add(Simple1ActualizarForm.getContentPane());
+      dialog.pack();
+      dialog.setLocationRelativeTo(this); 
+      dialog.setVisible(true);
     }//GEN-LAST:event_actualizarArticuloActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed

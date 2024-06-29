@@ -31,15 +31,17 @@ public class ArticuloDAO {
     }
 
     public void actualizarArticulo(Articulo articulo) throws SQLException {
-        String sql = "UPDATE inv_sim_1 SET codigo = ?, nombre_inv = ?, precio_inv = ? WHERE codigo = ?";
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, articulo.getCodigo());
-            ps.setString(2, articulo.getNombre());
-            ps.setString(3, articulo.getPrecio());
-            ps.executeUpdate();
-        }
+    String sql = "UPDATE inv_sim_1 SET codigo = ?, nombre_inv = ?, precio_inv = ? WHERE id_iv_sim1 = ?";
+    try (Connection con = DBConnection.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, articulo.getCodigo());
+        ps.setString(2, articulo.getNombre());
+        ps.setString(3, articulo.getPrecio());
+        ps.setInt(4, articulo.getId()); // Aquí se usa el id del artículo
+        ps.executeUpdate();
     }
+}
+
 
     public void eliminarArticulo(String articulo) throws SQLException {
         String sql = "DELETE FROM inv_sim_1 WHERE codigo = ?";
